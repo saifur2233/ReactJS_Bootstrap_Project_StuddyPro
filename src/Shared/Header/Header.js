@@ -23,9 +23,9 @@ const Header = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link href="#features"><b>Courses</b></Nav.Link>
-          <Nav.Link href="#pricing"><b>Faq</b></Nav.Link>
-          <Nav.Link href="#pricing"><b>Blog</b></Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/courses')}}><b>Courses</b></Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/faq')}}><b>Faq</b></Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/blogs')}}><b>Blog</b></Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link href="#deets"><b>Sign In</b></Nav.Link>
@@ -35,7 +35,7 @@ const Header = () => {
       <Form.Check 
         type="switch"
         id="custom-switch"
-        label="Dark Theme"
+        label="Dark Mode"
       />
       </Form>
           </Nav.Link>
