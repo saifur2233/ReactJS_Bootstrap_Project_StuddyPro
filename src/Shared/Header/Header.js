@@ -28,8 +28,8 @@ const Header = () => {
           <Nav.Link onClick={()=>{navigate('/blogs')}}><b>Blog</b></Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link href="#deets"><b>Sign In</b></Nav.Link>
-          <Nav.Link href="#deets"><b>Sign Up</b></Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/login')}}><b>Sign In</b></Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/signup')}}><b>Sign Up</b></Nav.Link>
           <Nav.Link eventKey={2} href="#memes">
             <Form>
       <Form.Check 
