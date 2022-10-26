@@ -67,11 +67,6 @@ const SignUp = () => {
       </Button>
     </div>
     </Form>
-    <hr />
-    <div className="d-grid gap-2">
-    <Button variant="outline-success">Sign Up With Google</Button>
-    <Button variant="outline-dark">Sign Up With GitHub</Button>
-    </div>
       </Card.Body>
       <Card.Footer className="text-muted text-center">
         Already have an account? <Card.Link onClick={()=>{navigate('/login')}}>

@@ -31,10 +31,10 @@ const Header = () => {
           <Nav.Link onClick={()=>{navigate('/blogs')}}><b>Blog</b></Nav.Link>
         </Nav>
         <Nav>
-       <Nav.Link><b>{user?.email ? user.email.slice(0,6): '' }</b></Nav.Link>
+       <Nav.Link><b>{user?.email ? user.email.slice(0,6): user?.displayName.slice(0,7) }</b></Nav.Link>
           {
             user?.uid ?
-            <Nav.Link onClick={logout}><b>Log Out</b></Nav.Link>
+            <Nav.Link onClick={logout}><b>Logout</b></Nav.Link>
             :
             <>
             <Nav.Link onClick={()=>{navigate('/login')}}><b>Sign In</b></Nav.Link>

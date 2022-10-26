@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/UserContext';
 const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
-    const {logIn} = useContext(AuthContext);
+    const {logIn, GoogleSignIn, GitHubSignIn} = useContext(AuthContext);
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
@@ -31,6 +31,30 @@ const Login = () => {
       setError(error.message)
     })
     }
+
+    const handleGoogleSignIn = () =>{
+        GoogleSignIn().then((result)=>{
+            const user = result.user;
+            console.log(user);
+            navigate(from, {replace:true});
+        })
+        .catch((error)=>{
+            console.error(error);
+            setError(error.message)
+          })
+    }
+
+    const handleGitHubSignIn = ()=>{
+        GitHubSignIn()
+        .then(result=> {
+          const user = result.user;
+          console.log(user);
+          navigate(from, {replace:true});
+        })
+        .catch(error=>{
+          console.error("Error: ", error);
+        })
+      }
 
   return (
     <div className='d-flex justify-content-center my-5'>
@@ -55,8 +79,12 @@ const Login = () => {
     </Form>
     <hr />
     <div className="d-grid gap-2">
-    <Button variant="outline-success">Sign In With Google</Button>
-    <Button variant="outline-dark">Sign In With GitHub</Button>
+    <Button variant="outline-success" 
+    onClick={handleGoogleSignIn}
+    >Sign In With Google</Button>
+    <Button variant="outline-dark"
+    onClick={handleGitHubSignIn}
+    >Sign In With GitHub</Button>
     </div>
       </Card.Body>
       <Card.Footer className="text-muted text-center">Don't have an account? <Card.Link onClick={()=>{navigate('/signup')}}> Sign Up</Card.Link></Card.Footer>

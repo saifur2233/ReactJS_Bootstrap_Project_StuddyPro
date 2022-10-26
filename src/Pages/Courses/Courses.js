@@ -25,7 +25,7 @@ const Courses = () => {
             <h4 className='text-warning'>All Categories</h4>
                 {categories.map(category => <p 
           key={category.id}>
-           <Link className='btn btn-primary' to={`/category/${category.id}`}>{category.name}</Link>
+           <Link className='btn btn-primary' to={`/courses/${category.id}`}>{category.name}</Link>
             </p>)}
             </Col>
                 <Col sm={12} md={8} lg={9}>
