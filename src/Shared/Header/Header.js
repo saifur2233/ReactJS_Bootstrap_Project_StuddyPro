@@ -1,13 +1,16 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import logo from '../../assets/images/logo.png'
+import { AuthContext } from '../../context/UserContext';
 
 const Header = () => {
   const navigate = useNavigate();
+  const {user, logout} = useContext(AuthContext);
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className='mb-4'>
     <Container>
@@ -28,8 +31,16 @@ const Header = () => {
           <Nav.Link onClick={()=>{navigate('/blogs')}}><b>Blog</b></Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link onClick={()=>{navigate('/login')}}><b>Sign In</b></Nav.Link>
+       <Nav.Link><b>{user?.email ? user.email.slice(0,6): '' }</b></Nav.Link>
+          {
+            user?.uid ?
+            <Nav.Link onClick={logout}><b>Log Out</b></Nav.Link>
+            :
+            <>
+            <Nav.Link onClick={()=>{navigate('/login')}}><b>Sign In</b></Nav.Link>
           <Nav.Link onClick={()=>{navigate('/signup')}}><b>Sign Up</b></Nav.Link>
+            </>
+          }
           <Nav.Link eventKey={2} href="#memes">
             <Form>
       <Form.Check 

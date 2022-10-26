@@ -28,7 +28,8 @@ const Login = () => {
     </Form>
     <hr />
     <div className="d-grid gap-2">
-    <Button variant="outline-success">Sign In With Google</Button>{' '}
+    <Button variant="outline-success">Sign In With Google</Button>
+    <Button variant="outline-dark">Sign In With GitHub</Button>
     </div>
       </Card.Body>
       <Card.Footer className="text-muted text-center">Don't have an account? <Card.Link onClick={()=>{navigate('/signup')}}> Sign Up</Card.Link></Card.Footer>
