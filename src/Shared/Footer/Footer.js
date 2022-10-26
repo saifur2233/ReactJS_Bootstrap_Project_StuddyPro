@@ -16,7 +16,7 @@ const Footer = () => {
             <div className="col-md-4 col-sm-12 col-lg-4 col-xl-4">
               <h5>GET IN TOUCH</h5>
               <p>
-              <FaMailchimp></FaMailchimp>info@example.com
+              <FaMailchimp></FaMailchimp> info@example.com
               </p>
               <p>
               <FaMobileAlt></FaMobileAlt> +673 853 605
