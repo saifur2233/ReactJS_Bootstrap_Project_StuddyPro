@@ -5,57 +5,70 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import CourseImg from '../../assets/images/course/course1.jpg'
+import { useLoaderData } from 'react-router-dom'
+import CourseSummaryCard from '../../Shared/CourseSummaryCard/CourseSummaryCard'
+import CourseLayout from '../../layout/Course/CourseLayout';
+import LeftSideNav from '../../Shared/LeftSideNav/LeftSideNav';
+import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/fakedb';
 
 const Courses = () => {
-    const [categories, setCategories] = useState([]);
+   const allcourses = useLoaderData();
+   const [cart, setCart] = useState([]);
 
-    useEffect(()=>{
-      fetch('http://localhost:5000/course-category')
-      .then(res=> res.json())
-      .then(data => setCategories(data));
-    },[]);
+   const clearCart = () =>{
+       setCart([]);
+       deleteShoppingCart();
+   }
 
-    //console.log(categories)
+   useEffect( () =>{
+    const storedCart = getStoredCart();
+    const savedCart = [];
+    for(const id in storedCart){
+        const addedCourse = allcourses.find(course => course._id === id);
+        if(addedCourse){
+            const quantity = storedCart[id];
+            addedCourse.quantity = quantity;
+            savedCart.push(addedCourse);
+        }
+    }
+    setCart(savedCart);
+}, [allcourses])
+
+const handleAddToCart = (selectedCourse) =>{
+  let newCart = [];
+  const exists = cart.find(course => course.id === selectedCourse._id);
+  if(!exists){
+    selectedCourse.quantity = 1;
+      newCart = [...cart, selectedCourse];
+  }
+  else{
+      const rest = cart.filter(course => course.id !== selectedCourse._id);
+      exists.quantity = exists.quantity + 1;
+      newCart = [...rest, exists];
+  }
+  
+  setCart(newCart);
+  addToDb(selectedCourse._id);
+}
 
   return (
     <div className='my-5'>
         <Container>
             <Row>
-            <Col sm={12} md={4} lg={3}>
-            <h4 className='text-warning'>All Categories</h4>
-                {categories.map(category => <p 
-          key={category.id}>
-           <Link className='btn btn-primary' to={`/courses/${category.id}`}>{category.name}</Link>
-            </p>)}
+            <Col sm={12} md={3} lg={2}>
+            <LeftSideNav></LeftSideNav>
             </Col>
-                <Col sm={12} md={8} lg={9}>
+                <Col sm={12} md={9} lg={10}>
                 <Row>
-        <Col sm={12} md={6} lg={4} >
-        <Card>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4} >
-        <Card>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-        </Col>
+                {
+        allcourses.map(course => <Col sm={12} md={6} lg={4}><CourseSummaryCard
+           key={course._id}
+          course={course}
+          handleAddToCart={handleAddToCart}
+        >
+        </CourseSummaryCard></Col>)
+      }
             </Row>
                 </Col>
             </Row>
