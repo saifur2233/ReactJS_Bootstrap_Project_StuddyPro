@@ -24,12 +24,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/courses',
                 element: <Courses></Courses>,
-                loader:()=> fetch(`http://localhost:5000/courses`)
+                loader:()=> fetch(`https://study-pro-backend.vercel.app/courses`)
             },
             {
                 path: '/course/:id',
                 element: <Category></Category>,
-                loader:({params})=> fetch(`http://localhost:5000/category/${params.id}`)
+                loader:({params})=> fetch(`https://study-pro-backend.vercel.app/category/${params.id}`)
             },
             {
                 path: '/cart',
