@@ -14,7 +14,7 @@ const LeftSideNav = () => {
         <h4 className='text-warning'>All Categories</h4>
                 {categories.map(category => <p 
           key={category.id}>
-           <Link className='btn btn-primary' to={`/courses/${category.id}`}>{category.name}</Link>
+           <Link className='btn btn-primary' to={`/course/${category.id}`}>{category.name}</Link>
             </p>)}
 
             <div className='my-3'>
